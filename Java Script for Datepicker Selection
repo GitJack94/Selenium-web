@@ -1,0 +1,33 @@
+1. Selenium Java Script for Datepicker Selection
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class DatePickerAutomation {
+    public static void main(String[] args) {
+       
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        
+        driver.manage().window().maximize();
+        
+        driver.get("https://jqueryui.com/datepicker/");   
+       
+        driver.switchTo().frame(driver.findElement(By.cssSelector(".demo-frame")));      
+        
+        driver.findElement(By.id("datepicker")).click();        
+        
+        driver.findElement(By.cssSelector(".ui-datepicker-next")).click();
+       
+        driver.findElement(By.xpath("//a[text()='22']")).click();        
+        
+        String selectedDate = driver.findElement(By.id("datepicker")).getAttribute("value");
+        
+        System.out.println("Selected date: " + selectedDate);   
+     
+        driver.quit();
+    }
+}
