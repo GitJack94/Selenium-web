@@ -1,0 +1,39 @@
+ Automated Drag and Drop Operation using Selenium Java
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class DragAndDropAutomation {
+    public static void main(String[] args) {
+       
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://jqueryui.com/droppable/");
+        
+        driver.switchTo().frame(driver.findElement(By.className("demo-frame")));
+        
+        WebElement source = driver.findElement(By.id("draggable"));
+        
+        WebElement target = driver.findElement(By.id("droppable"));
+        
+        Actions action = new Actions(driver);
+        action.dragAndDrop(source, target).perform();
+       
+        String backgroundColor = target.getCssValue("background-color");
+        System.out.println("Background color after drop: " + backgroundColor);
+        String droppedText = target.getText();
+        if (droppedText.equals("Dropped!")) {
+ System.out.println("Drag and drop operation was successful.");
+        } else {
+ System.out.println("Drag and drop operation failed.");
+        }
+       
+        driver.quit();
+    }
+}
